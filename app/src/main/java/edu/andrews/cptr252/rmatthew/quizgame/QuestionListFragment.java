@@ -13,8 +13,6 @@ import android.view.ViewGroup;
 import edu.andrews.cptr252.rmatthew.quizgame.dummy.DummyContent;
 import edu.andrews.cptr252.rmatthew.quizgame.dummy.DummyContent.DummyItem;
 
-import java.util.List;
-
 /**
  * A fragment representing a list of Items.
  * <p/>
@@ -58,7 +56,7 @@ public class QuestionListFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_questionlist_list, container, false);
+        View view = inflater.inflate(R.layout.fragment_questionlist, container, false);
 
         // Set the adapter
         if (view instanceof RecyclerView) {

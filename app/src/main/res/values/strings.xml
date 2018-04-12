@@ -7,4 +7,12 @@
     <string name="question2">Elephants drink through their trunks.</string>
     <string name="question3">Cheetahs are the faster mammal.</string>
     <string name="question4">Bears are afraid of loud noises.</string>
+    <string name="questionButton">Question Editor</string>
+    <string name="gameButton">Start Game</string>
+    <string name="enterQuestion">Enter Question:</string>
+    <string name="enterAnswer">Enter Answer:</string>
+    <string name="question">Question</string>
+    <string name="true_button">True</string>
+    <string name="false_button">False</string>
+    <string name="results">Results</string>
 </resources>
