@@ -3,93 +3,211 @@ package edu.andrews.cptr252.rmatthew.quizgame;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.v4.app.ListFragment;
+import android.view.ActionMode;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.TextView;
 
-import edu.andrews.cptr252.rmatthew.quizgame.dummy.DummyContent;
-import edu.andrews.cptr252.rmatthew.quizgame.dummy.DummyContent.DummyItem;
+import java.util.ArrayList;
 
-import java.util.List;
 
 /**
- * A fragment representing a list of Items.
- * <p/>
- * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
- * interface.
+ * A simple {@link Fragment} subclass.
  */
-public class QuestionListFragment extends Fragment {
+public class QuestionListFragment extends ListFragment {
+    private QuestionAdapter mAdapter;
+    private static final String TAG = "QuestionListFragment";
+    private ArrayList<Question> mQuestions;
 
-    // TODO: Customize parameters
-    private int mColumnCount = 1;
+    public void updateUI() {
+        QuestionList questionList = QuestionList.getInstance(getActivity());
+        ArrayList<Question> ques = questionList.getQuestions();
 
-    private OnListFragmentInteractionListener mListener;
-
-    /**
-     * Mandatory empty constructor for the fragment manager to instantiate the
-     * fragment (e.g. upon screen orientation changes).
-     */
-    public QuestionListFragment() {
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_question_list, container, false);
-
-        // Set the adapter
-        if (view instanceof RecyclerView) {
-            Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
-            if (mColumnCount <= 1) {
-                recyclerView.setLayoutManager(new LinearLayoutManager(context));
-            } else {
-                recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
-            }
-            recyclerView.setAdapter(new MyQuestionRecyclerViewAdapter(DummyContent.ITEMS, mListener));
+        if (mAdapter == null) {
+            mAdapter = new QuestionAdapter(ques);
+            setListAdapter(mAdapter);
+        } else {
+            mAdapter.setQuestions(ques);
+            mAdapter.notifyDataSetChanged();
         }
-        return view;
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup parent,
+                             Bundle savedInstanceState) {
+        View v = super.onCreateView(inflater, parent, savedInstanceState);
+
+        ListView listView = v.findViewById(android.R.id.list);
+
+        updateUI();
+
+        listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+        listView.setMultiChoiceModeListener(new AbsListView.MultiChoiceModeListener() {
+            @Override
+            public void onItemCheckedStateChanged(ActionMode actionMode, int i, long l, boolean b) {
+
+            }
+
+            @Override
+            public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+                MenuInflater inflater = actionMode.getMenuInflater();
+                inflater.inflate(R.menu.question_list_item_context, menu);
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+                return false;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+                switch (menuItem.getItemId()) {
+                    case R.id.menu_item_delete_question:
+                        QuestionList questionList = QuestionList.getInstance(getActivity());
+
+                        for (int i = mAdapter.getCount() - 1; i >= 0; i--) {
+                            if (getListView().isItemChecked(i)) {
+                                questionList.deleteQuestion(mAdapter.getItem(i));
+                            }
+                        }
+
+                        actionMode.finish();
+                        updateUI();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode actionMode) {
+
+            }
+        });
+        return v;
+    }
+
+    private void addQuestion() {
+        Question que = new Question();
+        QuestionList.getInstance(getActivity()).addQuestion(que);
+
+        mCallbacks.onQuestionSelected(que);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.menu_question_list, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_item_add_question:
+                addQuestion();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private class QuestionAdapter extends ArrayAdapter<Question> {
+
+        public QuestionAdapter(ArrayList<Question> ques) {
+            super(getActivity(), 0, ques);
+        }
+
+        public void setQuestions(ArrayList<Question> ques) {
+            clear();
+            addAll(ques);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            //if we werernt given a view inflate one
+            if(null == convertView) {
+                convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_question, null);
+            }
+
+            Question question = getItem(position);
+
+            TextView question_list_que = convertView.findViewById(R.id.question_list_que);
+            question_list_que.setText(question.getQuestion());
+
+            return convertView;
+        }
+    } //end QuestionAdapter
+
+    public QuestionListFragment() {
+        // Required empty public constructor
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState){
+        super.onCreate(savedInstanceState);
+        getActivity().setTitle(R.string.question);
+        mQuestions = QuestionList.getInstance(getActivity()).getQuestions();
+        setHasOptionsMenu(true);
+
+        //Use custom BugAdapter for generating views for each bug
+        mAdapter = new QuestionAdapter(mQuestions);
+        setListAdapter(mAdapter);
+    }
+
+    @Override
+    public void onListItemClick(ListView l, View v, int position, long id) {
+        Question que = (Question)(getListAdapter()).getItem(position);
+
+        mCallbacks.onQuestionSelected(que);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateUI();
+    }
+
+    public interface Callbacks {
+        void onQuestionSelected(Question que);
+    }
+
+    private Callbacks mCallbacks;
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnListFragmentInteractionListener) {
-            mListener = (OnListFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnListFragmentInteractionListener");
-        }
+        mCallbacks = (Callbacks)context;
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        mListener = null;
+        mCallbacks = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p/>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnListFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onListFragmentInteraction(DummyItem item);
-    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

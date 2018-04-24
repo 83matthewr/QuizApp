@@ -1,5 +1,7 @@
 package edu.andrews.cptr252.rmatthew.quizgame;
 
+import java.util.UUID;
+
 /**
  * Created by matthew on 4/18/18.
  */
@@ -7,26 +9,37 @@ package edu.andrews.cptr252.rmatthew.quizgame;
 public class Question {
     private String mQuestion;
     private boolean mAnswer;
+    private UUID mId;
 
-    public Question (String quest, boolean ans) {
-        mQuestion = quest;
-        mAnswer = ans;
+    public Question () {
+        this.mId = UUID.randomUUID();
     }
 
-    public boolean isAnswer() {
+    public Question (UUID id) {
+        mId = id;
+    }
+
+    public boolean getAnswer() {
         return mAnswer;
     }
 
     public void setAnswer(boolean answer) {
-        this.mAnswer = answer;
+        mAnswer = answer;
     }
 
     public String getQuestion() {
-
         return mQuestion;
     }
 
     public void setQuestion(String question) {
         this.mQuestion = question;
+    }
+
+    public UUID getId () {
+        return mId;
+    }
+
+    public void setId (UUID id) {
+        mId = id;
     }
 }

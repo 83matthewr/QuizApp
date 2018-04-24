@@ -8,38 +8,25 @@
     android:background="@drawable/background_activated">
 
     <TextView
-        android:id="@+id/bug_list_item_titleTextView"
+        android:id="@+id/question_list_que"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:text="Question Title"
-        app:layout_constraintEnd_toStartOf="@+id/bug_list_item_solvedCheckBox"
+        app:layout_constraintEnd_toStartOf="@+id/answerView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/bug_list_item_dateTextView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="Question Date"
-        app:layout_constraintEnd_toStartOf="@+id/bug_list_item_solvedCheckBox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bug_list_item_titleTextView" />
-
-    <CheckBox
-        android:id="@+id/bug_list_item_solvedCheckBox"
+        android:id="@+id/answerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:checked="false"
-        android:clickable="false"
-        android:focusable="false"
+        android:layout_marginEnd="8dp"
+        android:layout_marginTop="8dp"
+        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
 </android.support.constraint.ConstraintLayout>

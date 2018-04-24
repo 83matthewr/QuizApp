@@ -1,18 +1,28 @@
 <resources>
     <string name="app_name">QuizGame</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+
     <string name="question1">Alligators cannot run.</string>
     <string name="question2">Elephants drink through their trunks.</string>
-    <string name="question3">Cheetahs are the faster mammal.</string>
+    <string name="question3">Cheetahs are the fastest mammal.</string>
     <string name="question4">Bears are afraid of loud noises.</string>
+
+
     <string name="questionButton">Question Editor</string>
     <string name="gameButton">Start Game</string>
-    <string name="enterQuestion">Enter Question:</string>
-    <string name="enterAnswer">Enter Answer:</string>
-    <string name="question">Question</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
+
+    <string name="enterQuestion">Enter Question:</string>
+    <string name="enterAnswer">Enter Answer:</string>
+
+
+    <string name="question">Question</string>
     <string name="results">Results</string>
+
+
+    <string name="new_question">New Question</string>
+    <string name="action_settings">Settings</string>
+    <string name="delete_question">Delete</string>
 </resources>
