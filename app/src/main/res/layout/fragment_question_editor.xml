@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -6,22 +7,21 @@
     tools:context="edu.andrews.cptr252.rmatthew.quizgame.MainActivity">
 
     <EditText
-        android:id="@+id/bug_title"
+        android:id="@+id/question_editor"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:ems="10"
         android:hint="@string/question"
         android:inputType="textPersonName"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title_textView" />
+        app:layout_constraintTop_toBottomOf="@+id/questionView" />
 
     <TextView
-        android:id="@+id/title_textView"
+        android:id="@+id/questionView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -31,33 +31,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/details_textVIew"
+        android:id="@+id/answerView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:text="@string/enterAnswer"
-        app:layout_constraintStart_toStartOf="@+id/title_textView"
-        app:layout_constraintTop_toBottomOf="@+id/bug_title" />
+        app:layout_constraintStart_toStartOf="@+id/question_editor"
+        app:layout_constraintTop_toBottomOf="@+id/question_editor" />
 
     <Button
         android:id="@+id/true_button"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/true_button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_textVIew" />
+        app:layout_constraintTop_toBottomOf="@+id/answerView" />
 
     <Button
         android:id="@+id/false_button"
         android:layout_width="175dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="16dp"
         android:text="@string/false_button"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/details_textVIew" />
+        app:layout_constraintTop_toBottomOf="@+id/answerView" />
 
 </android.support.constraint.ConstraintLayout>
