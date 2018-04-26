@@ -25,15 +25,6 @@ public class QuestionList {
     private Context mAppContext;
     private SQLiteDatabase mDataBase;
 
-    /*
-    public File getPhotoFile(Bug bug) {
-        File externalFilesDir = mAppContext
-                .getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        if(externalFilesDir == null) {
-            return null;
-        }
-        return new File(externalFilesDir, bug.getPhotoFilename());
-    } */
 
     public ArrayList<Question> getQuestions() {
         ArrayList<Question> ques = new ArrayList<>();
@@ -99,7 +90,7 @@ public class QuestionList {
         ContentValues values = new ContentValues();
         values.put(QuestionTable.Cols.UUID, que.getId().toString());
         values.put(QuestionTable.Cols.QUESTION, que.getQuestion());
-        values.put(QuestionTable.Cols.ANSWER, que.getAnswer());
+        values.put(QuestionTable.Cols.ANSWER, que.getAnswer() ? 1 : 0);
 
         return values;
     }

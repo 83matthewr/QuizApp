@@ -20,11 +20,11 @@ public class QuestionCursorWrapper extends CursorWrapper {
     public Question getQuestion() {
         String uuidString = getString(getColumnIndex(QuestionTable.Cols.UUID));
         String question = getString(getColumnIndex(QuestionTable.Cols.QUESTION));
-        Boolean answer = Boolean.getBoolean(String.valueOf(getColumnIndex(QuestionTable.Cols.ANSWER)));
+        int answer = getInt(getColumnIndex(QuestionTable.Cols.ANSWER));
 
         Question que = new Question(UUID.fromString(uuidString));
         que.setQuestion(question);
-        que.setAnswer(answer);
+        que.setAnswer(answer != 0);
         return que;
     }
 }

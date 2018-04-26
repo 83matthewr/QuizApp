@@ -97,8 +97,7 @@ public class QuestionEditorFragment extends Fragment {
         mTrueButton = v.findViewById(R.id.true_button);
         mTrueButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                boolean b = true;
-                mQuestion.setAnswer(b);
+                mQuestion.setAnswer(true);
                 Log.d(TAG, "Set answer to true");
             }
         });
@@ -106,12 +105,18 @@ public class QuestionEditorFragment extends Fragment {
         mFalseButton = v.findViewById(R.id.false_button);
         mFalseButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                boolean b = false;
-                mQuestion.setAnswer(b);
+                mQuestion.setAnswer(false);
                 Log.d(TAG, "Set answer to false");
             }
         });
         return v;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
     }
 }
 

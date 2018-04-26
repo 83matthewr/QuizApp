@@ -42,4 +42,15 @@ public class Question {
     public void setId (UUID id) {
         mId = id;
     }
+
+    public String returnAnswerString() {
+        if(this.getAnswer()) {
+            return("True");
+        }
+        if (!this.getAnswer()) {
+            return("False");
+        }
+        else
+            return("fail");
+    }
 }

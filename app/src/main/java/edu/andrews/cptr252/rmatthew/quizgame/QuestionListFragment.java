@@ -1,6 +1,6 @@
 package edu.andrews.cptr252.rmatthew.quizgame;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.ListFragment;
@@ -100,7 +100,9 @@ public class QuestionListFragment extends ListFragment {
         Question que = new Question();
         QuestionList.getInstance(getActivity()).addQuestion(que);
 
-        mCallbacks.onQuestionSelected(que);
+        Intent i = new Intent(getActivity(), QuestionEditorActivity.class);
+        i.putExtra(QuestionEditorFragment.EXTRA_QUESTION_ID, que.getId());
+        startActivityForResult(i, 0);
     }
 
     @Override
@@ -133,15 +135,18 @@ public class QuestionListFragment extends ListFragment {
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            //if we werernt given a view inflate one
+            //if we weren't given a view inflate one
             if(null == convertView) {
                 convertView = getActivity().getLayoutInflater().inflate(R.layout.fragment_question, null);
             }
 
             Question question = getItem(position);
 
-            TextView question_list_que = convertView.findViewById(R.id.question_list_que);
-            question_list_que.setText(question.getQuestion());
+            TextView questionView = convertView.findViewById(R.id.questionView);
+            questionView.setText(question.getQuestion());
+
+            TextView answerView = convertView.findViewById(R.id.answerView);
+            answerView.setText(question.returnAnswerString());
 
             return convertView;
         }
@@ -167,31 +172,16 @@ public class QuestionListFragment extends ListFragment {
     public void onListItemClick(ListView l, View v, int position, long id) {
         Question que = (Question)(getListAdapter()).getItem(position);
 
-        mCallbacks.onQuestionSelected(que);
+        Intent i = new Intent(getActivity(), QuestionEditorActivity.class);
+
+        i.putExtra(QuestionEditorFragment.EXTRA_QUESTION_ID, que.getId());
+        startActivity(i);
     }
 
     @Override
     public void onResume() {
         super.onResume();
         updateUI();
-    }
-
-    public interface Callbacks {
-        void onQuestionSelected(Question que);
-    }
-
-    private Callbacks mCallbacks;
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        mCallbacks = (Callbacks)context;
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mCallbacks = null;
     }
 
 }
