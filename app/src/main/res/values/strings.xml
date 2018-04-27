@@ -3,23 +3,21 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
-    <string name="question1">Alligators cannot run.</string>
-    <string name="question2">Elephants drink through their trunks.</string>
-    <string name="question3">Cheetahs are the fastest mammal.</string>
-    <string name="question4">Bears are afraid of loud noises.</string>
-
-
     <string name="questionButton">Question Editor</string>
     <string name="gameButton">Start Game</string>
     <string name="true_button">True</string>
     <string name="false_button">False</string>
+    <string name="true_game_button">True?</string>
+    <string name="false_game_button">False?</string>
 
     <string name="enterQuestion">Enter Question:</string>
     <string name="enterAnswer">Enter Answer:</string>
-
-
     <string name="question">Question</string>
     <string name="results">Results</string>
+    <string name="question_game">Question:</string>
+    <string name="next_button">Next</string>
+    <string name="previous_button">Previous</string>
+    <string name="okay_button">Okay</string>
 
 
     <string name="new_question">New Question</string>
