@@ -31,7 +31,7 @@ import java.util.Date;
 import java.util.UUID;
 
 /**
- * A placeholder fragment containing a simple view.
+ * A fragment that creates or edits a question.
  */
 public class QuestionEditorFragment extends Fragment {
     public static final String TAG = "QuestionEditorFragment";
@@ -47,6 +47,7 @@ public class QuestionEditorFragment extends Fragment {
     public QuestionEditorFragment() {
     }
 
+    /** Creates fragment and takes arguments from the intent extras.*/
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +55,7 @@ public class QuestionEditorFragment extends Fragment {
         mQuestion = QuestionList.getInstance(getActivity()).getQuestion(queId);
     }
 
+    /** returns a new instance of the fragment with the question id */
     public static QuestionEditorFragment newInstance(UUID queId){
         Bundle args = new Bundle();
         args.putSerializable(EXTRA_QUESTION_ID, queId);
@@ -62,12 +64,21 @@ public class QuestionEditorFragment extends Fragment {
         return fragment;
     }
 
+    /** Updates question on pause. */
     @Override
     public void onPause() {
         super.onPause();
         QuestionList.getInstance(getActivity()).updateQuestion(mQuestion);
     }
 
+    /**
+     * Creates view for fragment and inflates widgets and controls listeners to implement
+     * the fragment interface. Returns fragment view.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {

@@ -15,9 +15,9 @@ import edu.andrews.cptr252.rmatthew.quizgame.database.QuestionDbHelper;
 import edu.andrews.cptr252.rmatthew.quizgame.database.QuestionDbSchema.QuestionTable;
 
 /**
- * Created by matthew on 2/14/18.
+ * Class to manage the list of questions for QuizGame. Creates, deletes, and stores
+ * an ArrayList of Question objects into a DB.
  */
-
 public class QuestionList {
        private static QuestionList sOurInstance;
        private static final String TAG = "QuestionList";
@@ -25,7 +25,10 @@ public class QuestionList {
     private Context mAppContext;
     private SQLiteDatabase mDataBase;
 
-
+    /**
+     * Function to return the ArrayList of questions.
+     * @return ques
+     */
     public ArrayList<Question> getQuestions() {
         ArrayList<Question> ques = new ArrayList<>();
         QuestionCursorWrapper cursor = queryQues(null, null);
@@ -42,12 +45,19 @@ public class QuestionList {
         return ques;
     }
 
-
+    /**
+     * Function to add a new question to database.
+     * @param que
+     */
     public void addQuestion(Question que) {
         ContentValues values = getContentValues(que);
         mDataBase.insert(QuestionTable.NAME, null, values);
     }
 
+    /**
+     * Function to update a question after being edited by user.
+     * @param que
+     */
     public void updateQuestion(Question que) {
         String uuidString = que.getId().toString();
         ContentValues values = getContentValues(que);
@@ -56,6 +66,10 @@ public class QuestionList {
                 new String[] { uuidString});
     }
 
+    /**
+     * Function that removes a question from the database.
+     * @param que
+     */
     public void deleteQuestion(Question que) {
         String uuidString = que.getId().toString();
         mDataBase.delete(QuestionTable.NAME,
@@ -63,6 +77,11 @@ public class QuestionList {
                 new String[] { uuidString});
     }
 
+    /**
+     * Function to find a question by UUID and return it.
+     * @param id
+     * @return question
+     */
     public Question getQuestion(UUID id) {
         QuestionCursorWrapper cursor = queryQues(QuestionTable.Cols.UUID + " = ? ",
                 new String[] { id.toString()});
@@ -86,6 +105,12 @@ public class QuestionList {
         return sOurInstance;
     }
 
+    /**
+     * Function to pack question info into a ContentValues object and return
+     * the values object.
+     * @param que
+     * @return values
+     */
     public static ContentValues getContentValues(Question que) {
         ContentValues values = new ContentValues();
         values.put(QuestionTable.Cols.UUID, que.getId().toString());
@@ -95,6 +120,11 @@ public class QuestionList {
         return values;
     }
 
+    /**
+     * Build a query for Question DB.
+     * @param whereClause defines the where clause of a SQL query * @param whereArgs
+     * defines where arguments for a SQL query * @return Object defining a SQL query
+     */
     private QuestionCursorWrapper queryQues(String whereClause, String[] whereArgs) {
         Cursor cursor = mDataBase.query(
                 QuestionTable.NAME,

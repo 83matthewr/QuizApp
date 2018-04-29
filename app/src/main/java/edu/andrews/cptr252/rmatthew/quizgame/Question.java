@@ -3,18 +3,28 @@ package edu.andrews.cptr252.rmatthew.quizgame;
 import java.util.UUID;
 
 /**
- * Created by matthew on 4/18/18.
+ * Model for quiz game. Question object stores a string question, a boolean answer,
+ * and a UUID.
  */
-
 public class Question {
+    /** Holds question. */
     private String mQuestion;
+    /** Holds answer to question. */
     private boolean mAnswer;
+    /** Holds id for question. */
     private UUID mId;
 
+    /**
+     * Constructor with random UUID.
+     */
     public Question () {
         this.mId = UUID.randomUUID();
     }
 
+    /**
+     * Constructor with specified UUID as param.
+     * @param id
+     */
     public Question (UUID id) {
         mId = id;
     }

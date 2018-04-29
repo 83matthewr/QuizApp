@@ -6,10 +6,6 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 
 /**
- * Created by matthew on 2/14/18.
- */
-
-/**
  * Generic activity for hosting a single fragment.
  */
 public abstract class SingleFragmentActivity extends AppCompatActivity{

@@ -12,12 +12,18 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 import java.util.UUID;
 
-
+/**
+ * Hosts Question Editor Fragment. Also sets up a viewpager and options menu.
+ */
 public class QuestionEditorActivity extends FragmentActivity {
     private ViewPager mViewPager;
 
     private ArrayList<Question> mQuestions;
 
+    /**
+     * Creates a viewpager and launches a fragment for the question that was selected.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,6 +78,9 @@ public class QuestionEditorActivity extends FragmentActivity {
         });
     }
 
+    /**
+     * Inflates an options menu.
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -79,6 +88,11 @@ public class QuestionEditorActivity extends FragmentActivity {
         return true;
     }
 
+    /**
+     * Returns if a question was selected.
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will

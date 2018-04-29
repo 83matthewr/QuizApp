@@ -9,10 +9,14 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- * Created by matthew on 4/28/18.
+ * Hosts fragment.
  */
-
 public class ResultsActivity extends SingleFragmentActivity {
+
+    /**
+     * creates and returns ResultsFragment
+     * @return ResultsFragment
+     */
     @Override
     protected Fragment createFragment() {
         return new ResultsFragment();

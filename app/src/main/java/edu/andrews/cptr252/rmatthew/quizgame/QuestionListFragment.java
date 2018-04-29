@@ -18,15 +18,17 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-
 /**
- * A simple {@link Fragment} subclass.
+ * Displays a list of questions to be selected, edited, created, and deleted.
  */
 public class QuestionListFragment extends ListFragment {
     private QuestionAdapter mAdapter;
     private static final String TAG = "QuestionListFragment";
     private ArrayList<Question> mQuestions;
 
+    /**
+     * Updates the question list.
+     */
     public void updateUI() {
         QuestionList questionList = QuestionList.getInstance(getActivity());
         ArrayList<Question> ques = questionList.getQuestions();
@@ -40,6 +42,14 @@ public class QuestionListFragment extends ListFragment {
         }
     }
 
+    /**
+     * Sets up the view of the fragment and sets up widgets and listeners for fragment.
+     * Return view of fragment.
+     * @param inflater
+     * @param parent
+     * @param savedInstanceState
+     * @return v
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup parent,
                              Bundle savedInstanceState) {
@@ -96,6 +106,9 @@ public class QuestionListFragment extends ListFragment {
         return v;
     }
 
+    /**
+     * Starts Question Editor to add a new question.
+     */
     private void addQuestion() {
         Question que = new Question();
         QuestionList.getInstance(getActivity()).addQuestion(que);
@@ -105,12 +118,22 @@ public class QuestionListFragment extends ListFragment {
         startActivityForResult(i, 0);
     }
 
+    /**
+     * Creates an options menu.
+     * @param menu
+     * @param inflater
+     */
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu_question_list, menu);
     }
 
+    /**
+     * Allows user to select questions in list.
+     * @param item
+     * @return boolean
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -122,6 +145,9 @@ public class QuestionListFragment extends ListFragment {
         }
     }
 
+    /**
+     * Class to get the view for a question.
+     */
     private class QuestionAdapter extends ArrayAdapter<Question> {
 
         public QuestionAdapter(ArrayList<Question> ques) {
@@ -133,6 +159,13 @@ public class QuestionListFragment extends ListFragment {
             addAll(ques);
         }
 
+        /**
+         * Creates the view for each question in question list.
+         * @param position
+         * @param convertView
+         * @param parent
+         * @return convertView
+         */
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             //if we weren't given a view inflate one
@@ -156,6 +189,10 @@ public class QuestionListFragment extends ListFragment {
         // Required empty public constructor
     }
 
+    /**
+     * Sets up the fragment, gets questions, and creates adapter for the questions.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -168,6 +205,13 @@ public class QuestionListFragment extends ListFragment {
         setListAdapter(mAdapter);
     }
 
+    /**
+     * Starts Question Editor for question that was clicked.
+     * @param l
+     * @param v
+     * @param position
+     * @param id
+     */
     @Override
     public void onListItemClick(ListView l, View v, int position, long id) {
         Question que = (Question)(getListAdapter()).getItem(position);
@@ -178,6 +222,9 @@ public class QuestionListFragment extends ListFragment {
         startActivity(i);
     }
 
+    /**
+     * Resumes activity and updates question list.
+     */
     @Override
     public void onResume() {
         super.onResume();

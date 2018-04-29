@@ -3,11 +3,14 @@ package edu.andrews.cptr252.rmatthew.quizgame;
 import android.support.v4.app.Fragment;
 
 /**
- * Created by matthew on 2/14/18.
+ * Hosts a fragment.
  */
-
 public class QuestionListActivity extends SingleFragmentActivity{
 
+    /**
+     * Creates and returns fragment.
+     * @return QuestionListFragment
+     */
     @Override
     protected Fragment createFragment() {
         return new QuestionListFragment();

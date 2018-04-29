@@ -1,9 +1,5 @@
 package edu.andrews.cptr252.rmatthew.quizgame;
 
-/**
- * Created by matthew on 4/28/18.
- */
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,7 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 /**
- *
+ * Displays results for Quiz game mode.
  */
 public class ResultsFragment extends Fragment {
     private Button mOkayButton;
@@ -27,6 +23,14 @@ public class ResultsFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Creates view for fragment, gets results data from intent and displays the results.
+     * Returns user to Main Activity.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return v
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -46,6 +50,9 @@ public class ResultsFragment extends Fragment {
         return v;
     }
 
+    /**
+     * Creates an intent for the MainActivity class.
+     */
     private void displayMainActivity () {
         Intent i = new Intent(getActivity(), MainActivity.class);
         startActivity(i);

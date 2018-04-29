@@ -16,7 +16,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 /**
- * A simple {@link Fragment} subclass.
+ * Game mode fragment that has user answer questions and keeps track of user's score.
  */
 public class GameFragment extends Fragment {
     private ArrayList<Question> mQuestions;
@@ -35,6 +35,10 @@ public class GameFragment extends Fragment {
         // Required empty public constructor
     }
 
+    /**
+     * Creates fragment and gets questions.
+     * @param savedInstanceState
+     */
     @Override
     public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -42,8 +46,17 @@ public class GameFragment extends Fragment {
         mTotal = mQuestions.size();
     }
 
+    /** Stores current index. */
     private int mCurrentIndex = 0;
 
+    /**
+     * Creates view for the fragment and inflates widgets and controls listeners to control the
+     * interface. Returns view.
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return v
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -120,11 +133,13 @@ public class GameFragment extends Fragment {
         }
     }
 
+    /** Adds to score and updates score text view. */
     private void updateScore() {
         mResults = (mScore + "/" + mTotal);
         mScoreView.setText(mResults);
     }
 
+    /** Returns if a question was answered right or not. */
     private boolean isCorrect(boolean b) {
         if(mQuestions.get(mCurrentIndex).getAnswer() == b){
             return true;
@@ -134,6 +149,7 @@ public class GameFragment extends Fragment {
         }
     }
 
+    /** Sends an intent to display the results of the game. */
     private void displayResultsActivity () {
         Intent i = new Intent(getActivity(), ResultsActivity.class);
         String results = ("You scored " + mScore + " out of " + mTotal + "!");
@@ -141,6 +157,7 @@ public class GameFragment extends Fragment {
         startActivity(i);
     }
 
+    /** Displays a dialog message. */
     private void showDialog(String message) {
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
         alertDialog.setMessage(message);
