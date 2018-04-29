@@ -41,8 +41,8 @@ public class QuestionEditorFragment extends Fragment {
     private EditText mQuestionField;
     private TextView mQuestionView;
     private TextView mAnswerView;
-    private Button mTrueButton;
-    private Button mFalseButton;
+    private CheckBox mTrueBox;
+    private CheckBox mFalseBox;
 
     public QuestionEditorFragment() {
     }
@@ -93,20 +93,29 @@ public class QuestionEditorFragment extends Fragment {
            }
        });
 
-
-        mTrueButton = v.findViewById(R.id.true_button);
-        mTrueButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mQuestion.setAnswer(true);
-                Log.d(TAG, "Set answer to true");
+        mTrueBox = v.findViewById(R.id.trueBox);
+        mTrueBox.setChecked(mQuestion.getAnswer() == true);
+        mTrueBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mTrueBox.isChecked()) {
+                    mFalseBox.setChecked(false);
+                    mQuestion.setAnswer(true);
+                    Log.d(TAG, "Set answer to true");
+                }
             }
         });
 
-        mFalseButton = v.findViewById(R.id.false_button);
-        mFalseButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                mQuestion.setAnswer(false);
-                Log.d(TAG, "Set answer to false");
+        mFalseBox = v.findViewById(R.id.falseBox);
+        mFalseBox.setChecked(mQuestion.getAnswer() == false);
+        mFalseBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(mFalseBox.isChecked()) {
+                    mTrueBox.setChecked(false);
+                    mQuestion.setAnswer(false);
+                    Log.d(TAG, "Set answer to false");
+                }
             }
         });
         return v;

@@ -18,6 +18,7 @@
     <string name="next_button">Next</string>
     <string name="previous_button">Previous</string>
     <string name="okay_button">Okay</string>
+    <string name="main_screen_button">Back to Main Screen</string>
 
 
     <string name="new_question">New Question</string>
