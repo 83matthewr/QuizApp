@@ -132,7 +132,8 @@ public class GameFragment extends Fragment {
         mPreviousButton = v.findViewById(R.id.previousButton);
         mPreviousButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                mCurrentIndex--;
+                if(mCurrentIndex != 0)
+                    mCurrentIndex--;
                 updateQuestion();
             }
         });
