@@ -23,6 +23,7 @@ public class GameFragment extends Fragment {
     private int mScore, mTotal;
     private String mResults;
     public static final String EXTRA_RESULTS =  "edu.andrews.cptr252.rmatthew.quizgame.results";
+    public static final String KEY_GAME_INDEX = "gameIndex";
 
     private TextView mQuestionView;
     private TextView mScoreView;
@@ -36,6 +37,16 @@ public class GameFragment extends Fragment {
     }
 
     /**
+     * Remember the current index when the activity is destroyed
+     * @param savedInstanceState Bundle used for saving identity of current quote.
+     */
+    @Override
+    public void onSaveInstanceState(Bundle savedInstanceState) {
+        super.onSaveInstanceState(savedInstanceState);
+        savedInstanceState.putInt(KEY_GAME_INDEX, mCurrentIndex);
+    }
+
+    /**
      * Creates fragment and gets questions.
      * @param savedInstanceState
      */
@@ -44,6 +55,10 @@ public class GameFragment extends Fragment {
         super.onCreate(savedInstanceState);
         mQuestions = QuestionList.getInstance(getActivity()).getQuestions();
         mTotal = mQuestions.size();
+
+        if(savedInstanceState != null) {
+            mCurrentIndex = savedInstanceState.getInt(KEY_GAME_INDEX);
+        }
     }
 
     /** Stores current index. */
@@ -61,6 +76,8 @@ public class GameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_game_mode, container, false);
+
+
 
         mQuestionView = v.findViewById(R.id.questionGameView);
         mQuestionView.setText(mQuestions.get(mCurrentIndex).getQuestion());
